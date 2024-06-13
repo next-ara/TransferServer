@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
+import com.next.module.file2.File2;
 import com.next.module.transfer.server.data.TransferData;
 import com.next.module.transfer.server.listener.OnCustomReceiveListener;
 import com.next.module.transfer.server.listener.OnSendListener;
@@ -118,10 +119,10 @@ public class TransferServer {
      * 发送文件
      *
      * @param ip             接收方ip
-     * @param fileList       待发送的文件路径列表
+     * @param fileList       待发送的文件列表
      * @param onSendListener 发送监听接口
      */
-    public void sendFileList(String ip, ArrayList<String> fileList, OnSendListener onSendListener) {
+    public void sendFileList(String ip, ArrayList<File2> fileList, OnSendListener onSendListener) {
         //设置端口
         this.binder.sendFileList(ip, this.transferData.getPort(), fileList, onSendListener);
     }
@@ -131,10 +132,10 @@ public class TransferServer {
      *
      * @param ip             接收方ip
      * @param port           接收方端口
-     * @param fileList       待发送的文件路径列表
+     * @param fileList       待发送的文件列表
      * @param onSendListener 发送监听接口
      */
-    public void sendFileList(String ip, int port, ArrayList<String> fileList, OnSendListener onSendListener) {
+    public void sendFileList(String ip, int port, ArrayList<File2> fileList, OnSendListener onSendListener) {
         //设置端口
         this.binder.sendFileList(ip, port, fileList, onSendListener);
     }

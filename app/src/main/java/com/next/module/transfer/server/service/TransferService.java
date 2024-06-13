@@ -7,6 +7,7 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.next.module.file2.File2;
 import com.next.module.transfer.server.TransferServer;
 import com.next.module.transfer.server.listener.OnCustomReceiveListener;
 import com.next.module.transfer.server.listener.OnReceiveListener;
@@ -201,10 +202,10 @@ public class TransferService extends Service {
          *
          * @param ip             接收端IP
          * @param port           接收端端口
-         * @param file_paths     文件路径列表
+         * @param fileObjList    文件对象列表
          * @param onSendListener 发送监听接口
          */
-        public void sendFileList(final String ip, final int port, final ArrayList<String> file_paths, OnSendListener onSendListener) {
+        public void sendFileList(final String ip, final int port, final ArrayList<File2> fileObjList, OnSendListener onSendListener) {
             //判断是否正在传输
             if (TransferService.this.isTransfer) {
                 return;
@@ -221,15 +222,12 @@ public class TransferService extends Service {
                         //发送文件发送开始监听
                         TransferListenerTool.fileSend(onSendListener);
 
-                        ArrayList<String> list = new ArrayList<>(file_paths);
-
-                        for (String path : list) {
-                            File file = new File(path);
-                            if (!file.exists()) {
+                        for (File2 file2 : fileObjList) {
+                            if (!file2.exists()) {
                                 continue;
                             }
                             try {
-                                TransferService.this.mSendThread = new SendThread(ip, port, file);
+                                TransferService.this.mSendThread = new SendThread(ip, port, file2);
 
                                 //启动发送线程
                                 TransferService.this.mSendThread.start();

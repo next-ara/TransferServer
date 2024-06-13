@@ -1,5 +1,6 @@
 package com.next.module.transfer.server.service;
 
+import com.next.module.file2.File2;
 import com.next.module.transfer.server.TransferServer;
 import com.next.module.transfer.server.tool.LogTool;
 
@@ -7,8 +8,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -33,10 +32,10 @@ public class SendThread extends TransferSocket implements Runnable {
     //读取文件
     private DataInputStream mFis;
 
-    //要发送的文件对象
-    private File mFile;
+    //待发送的文件对象
+    private File2 mFile;
 
-    public SendThread(String iP, int port, File file) throws NoSuchFieldException {
+    public SendThread(String iP, int port, File2 file) throws NoSuchFieldException {
         super();
         this.mIp = iP;
         this.mPort = port;
@@ -69,7 +68,7 @@ public class SendThread extends TransferSocket implements Runnable {
         //获取处理流
         this.mDis = new DataInputStream(new BufferedInputStream(this.mSocket.getInputStream()));
         this.mDos = new DataOutputStream(new BufferedOutputStream(this.mSocket.getOutputStream()));
-        this.mFis = new DataInputStream(new BufferedInputStream(new FileInputStream(this.mFile)));
+        this.mFis = new DataInputStream(new BufferedInputStream(this.mFile.openInputStream()));
     }
 
     @Override
