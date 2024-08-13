@@ -86,7 +86,11 @@ public class ScanDeviceTool {
                     break;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(2000);
+            } catch (Exception e) {
             }
         }
     }
@@ -130,7 +134,6 @@ public class ScanDeviceTool {
                 }
                 sc.close();
             } catch (Exception e) {
-                e.printStackTrace();
             }
         };
     }
@@ -194,7 +197,6 @@ public class ScanDeviceTool {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
         return list;
