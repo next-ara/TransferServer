@@ -88,12 +88,6 @@ public class ScanDeviceTool {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -101,8 +95,10 @@ public class ScanDeviceTool {
      * 停止扫描
      */
     public void stop() {
-        this.executor.shutdownNow();
-        this.executor = null;
+        if (this.executor != null) {
+            this.executor.shutdownNow();
+            this.executor = null;
+        }
     }
 
     /**
