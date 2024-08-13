@@ -74,12 +74,12 @@ public class ScanDeviceTool {
         onScanDeviceListener.onStart();
 
         for (int i = 1; i < 255; i++) {
-            if (this.executor != null) {
+            if (this.executor != null && !this.executor.isShutdown()) {
                 this.executor.execute(this.creatRunnable(onScanDeviceListener, address, currnetIp, i, port));
             }
         }
 
-        if (this.executor != null) {
+        if (this.executor != null && !this.executor.isShutdown()) {
             this.executor.shutdown();
         }
 
